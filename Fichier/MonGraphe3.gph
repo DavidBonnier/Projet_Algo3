@@ -1,0 +1,26 @@
+GPH
+Image= France.jpg
+Ville= 10
+0 Paris 355 167
+1 Toulouse 282 476
+2 Strasbourg 542 227
+3 Lyon 440 372
+4 Marseille 480 521
+5 Bordeaux 214 424
+6 Nantes 157 275
+7 Le_Puy_en_Velay 411 404
+8 Reims 408 149
+9 Le_Havre 257 131
+Distance=
+0 3  500
+0 8  150
+0 9  250
+3 0  500
+3 4  300
+3 7  130
+4 3  300
+4 7  290
+7 3  130
+7 4  290
+8 0  150
+9 0  250

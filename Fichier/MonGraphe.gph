@@ -1,0 +1,38 @@
+GPH
+Image= France.jpg
+Ville= 12
+0 Paris 352 183
+1 Lyon 421 343
+2 Bordeaux 211 423
+3 Toulouse 292 490
+4 Marseille 477 523
+5 Limoges 312 350
+6 Le-Puy-en-Velay 392 392
+7 Clermont-Ferrand 359 293
+8 Lille 380 60
+9 Brest 53 198
+10 Strasbourg 556 229
+11 Reims 429 161
+Distance=
+0 1  391
+0 2  499
+0 7  346
+0 8  210
+1 0  391
+1 4  272
+1 6  130
+2 0  499
+2 3  211
+3 2  211
+3 4  323
+4 1  272
+4 3  323
+4 6  266
+5 7  142
+6 1  130
+6 4  266
+6 7  123
+7 0  346
+7 5  142
+7 6  123
+8 0  210
