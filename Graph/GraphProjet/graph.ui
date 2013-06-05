@@ -122,14 +122,14 @@
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QRadioButton" name="radioButtonSaisiRoutes">
+      <widget class="QRadioButton" name="radioButton_2">
        <property name="text">
         <string>Saisir une route</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButtonSuppRoutes">
+      <widget class="QRadioButton" name="radioButton">
        <property name="text">
         <string>Supprimer une route</string>
        </property>
@@ -151,7 +151,7 @@
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButtonDeleteParcours">
+      <widget class="QPushButton" name="pushButton">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>

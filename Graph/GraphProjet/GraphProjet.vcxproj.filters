@@ -24,18 +24,18 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{215be330-a15c-412f-a469-64ff403116af}</UniqueIdentifier>
+      <UniqueIdentifier>{4fece368-6ffd-401e-b7f7-70952d29a6d0}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{0340a4c8-3efc-45d9-acc2-12f833133ecf}</UniqueIdentifier>
+      <UniqueIdentifier>{8b6b54ec-d8e8-41ec-86e9-ef1c4e971265}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Gestionnaire.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graph.cpp">
@@ -47,9 +47,35 @@
     <ClCompile Include="GeneratedFiles\Release\moc_graph.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_graph.cpp">
-      <Filter>Generated Files</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ville.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CarteView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CarteData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Gestionnaire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ville.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_graph.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CarteView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CarteData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="graph.h">
@@ -58,13 +84,5 @@
     <CustomBuild Include="graph.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="graph.qrc">
-      <Filter>Resource Files</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_graph.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

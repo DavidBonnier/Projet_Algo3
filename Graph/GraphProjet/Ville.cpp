@@ -1,5 +1,9 @@
 #include "Ville.h"
 
+CVille::CVille()
+{
+
+}
 
 CVille::CVille(QString NomVille, int x, int y)
 {

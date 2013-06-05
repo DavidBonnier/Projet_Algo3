@@ -3,6 +3,10 @@
 
 #include <QtGui/QMainWindow>
 #include "ui_graph.h"
+#include "Gestionnaire.h"
+#include "CarteView.h"
+#include "CarteData.h"
+
 
 class Graph : public QMainWindow
 {
@@ -14,18 +18,19 @@ public:
 
 private:
 	Ui::GraphClass ui;
-	QImage m_Image;
-	QPixmap m_pixmap;
+
+	bool modif;
+
 	QPoint m_Dim;
-	QString m_nomImage;
 	QString m_nomRepetoire;
-	QString m_programmeGPH;
-	//Affiche le QImage à l'aide du QPixmap
-	void paintEvent(QPaintEvent * evt);
+	CCarteData *m_data;
+	CCarteView *m_view;
 
 public slots:
 	//ouvre un fichier .gph qui est le programme qui contient tout
 	void Ouvrir();
+	//quitte l'application
+	void Quitter();
 	//save le fichier .gph
 	void Sauver();
 	//save le fichier .gph sous un autre nom

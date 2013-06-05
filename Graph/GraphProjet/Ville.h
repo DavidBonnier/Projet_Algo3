@@ -11,7 +11,7 @@ private:
 
 public:
 	CVille(QString NomVille, int x, int y);
-
+	CVille();
 	QString getNomVille(){return m_NomVille;}
 	QPoint getCoordonnees(){return m_Coordonnees;}
 
@@ -19,3 +19,4 @@ public:
 	void setCoordonnees(int x, int y);
 
 };
+

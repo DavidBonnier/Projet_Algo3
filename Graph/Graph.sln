@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graph", "Graph\Graph.vcxproj", "{4C221F46-8F8D-4D65-8D59-299D5B4DD34C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphProjet", "GraphProjet\GraphProjet.vcxproj", "{245F4707-B4FF-40D5-BA31-0A840BA15D24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4C221F46-8F8D-4D65-8D59-299D5B4DD34C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4C221F46-8F8D-4D65-8D59-299D5B4DD34C}.Debug|Win32.Build.0 = Debug|Win32
-		{4C221F46-8F8D-4D65-8D59-299D5B4DD34C}.Release|Win32.ActiveCfg = Release|Win32
-		{4C221F46-8F8D-4D65-8D59-299D5B4DD34C}.Release|Win32.Build.0 = Release|Win32
+		{245F4707-B4FF-40D5-BA31-0A840BA15D24}.Debug|Win32.ActiveCfg = Debug|Win32
+		{245F4707-B4FF-40D5-BA31-0A840BA15D24}.Debug|Win32.Build.0 = Debug|Win32
+		{245F4707-B4FF-40D5-BA31-0A840BA15D24}.Release|Win32.ActiveCfg = Release|Win32
+		{245F4707-B4FF-40D5-BA31-0A840BA15D24}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

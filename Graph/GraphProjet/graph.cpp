@@ -12,7 +12,7 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	connect (ui.actionSauver,SIGNAL(triggered()),this,SLOT(Sauver()));
 	connect (ui.actionSauver_sous,SIGNAL(triggered()),this,SLOT(Sauver_sous()));
 	connect (ui.actionFermer,SIGNAL(triggered()),this,SLOT(Fermer()));
-	connect (ui.actionQuitter,SIGNAL(triggered()),this,SLOT(close()));
+	connect (ui.actionQuitter,SIGNAL(triggered()),this,SLOT(Quitter()));
 
 	//Connection pour le menu Outils
 	connect (ui.actionOuvrir_une_Image,SIGNAL(triggered()),this,SLOT(Ouvrir_une_Image()));
@@ -28,44 +28,115 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	connect (ui.actionAide,SIGNAL(triggered()),this,SLOT(Aide()));
 	connect (ui.actionA_propos,SIGNAL(triggered()),this,SLOT(A_propos()));
 
-	m_nomRepetoire = "../";
+	m_nomRepetoire = "C:/Users/David/GitHub/Projet_Algo3/Fichier";
+
+	modif = false;
+
+	setWindowTitle("Mon petit ravail sur les graphes : nofichier : noImage");
 }
 
 Graph::~Graph()
 {
+	delete m_data;
+	delete m_view;
 }
 
 void Graph::Ouvrir()
 {
-	m_programmeGPH = QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.gph)"));
+	QString nameFile;
+	QString nameImg;
+	Table vect;
+	MaMap mappou;
+
+	//Chargement du fichier .GPH
+	nameFile = QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.gph)"));
+	CGestionnaire::Chargement(nameFile, nameImg, mappou, vect);
+
+	nameImg = m_nomRepetoire + '/' + nameImg;
+
+	//Maj des attributs de la CCarteData m_data
+	m_data = new CCarteData(vect, mappou, nameFile, nameImg);
+
+	//Maj du nom de la fenetre
+	setWindowTitle("Mon petit ravail sur les graphes : "+nameFile+" : "+ nameImg);
+
+	//Donne le pointer de Data dans Viewer
+	m_view = new CCarteView(m_data);
+	setCentralWidget(m_view);
+}
+
+void Graph::Quitter()
+{
+	if(modif)
+	{
+		QMessageBox msgBox;
+		msgBox.setText("Le document a été modifié");
+		msgBox.setInformativeText("Voulez vous sauvegarder vos changements?");
+		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+		msgBox.setDefaultButton(QMessageBox::Save);
+		int ret = msgBox.exec();
+
+		switch (ret) 
+		{
+		case QMessageBox::Save:
+			Sauver();
+			break;
+
+		case QMessageBox::Cancel:
+			// Cancel
+			break;
+		}
+	}
+
+	QApplication::closeAllWindows();
 }
 
 void Graph::Sauver()
 {
-	if(m_programmeGPH.isEmpty())
-		Sauver_sous();
+	if(!(m_data->getNomFichier().isEmpty()))
+		CGestionnaire::Sauvegarde(m_data->getNomFichier(),m_data->getNomImage(),m_data->getMapVille(),m_data->getTableRoutage());
+
 }
 
 void Graph::Sauver_sous()
 {
-	if(!m_programmeGPH.isEmpty())
-		m_programmeGPH = QFileDialog::getSaveFileName(this,tr("Sauvgarder Fichier"),m_programmeGPH,tr("(*.gph)"));
+	m_data->getNomFichier() = QFileDialog::getSaveFileName(this,tr("Sauvgarder Fichier"),m_nomRepetoire,tr("(*.gph)"));
+	Sauver();
 }
 
 void Graph::Fermer()
 {
-	m_Image=QImage("");
+	if(modif)
+	{
+		QMessageBox msgBox;
+		msgBox.setText("Le document a été modifié");
+		msgBox.setInformativeText("Voulez vous sauvegarder vos changements?");
+		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+		msgBox.setDefaultButton(QMessageBox::Save);
+		int ret = msgBox.exec();
+
+		switch (ret) 
+		{
+		case QMessageBox::Save:
+			Sauver();
+			break;
+
+		case QMessageBox::Cancel:
+			// Cancel
+			break;
+		}
+	}
+	setWindowTitle("Mon petit ravail sur les graphes : nofichier : noImage");
 	update();
 }
 
 void Graph::Ouvrir_une_Image()
 {
-	m_nomImage = QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.jpg)"));
-	if(m_nomImage != NULL)
-	{
-		m_Image = QImage(m_nomImage);
+	m_data->setNomImage(QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.jpg)")));
+
+	if(m_data->getNomImage() != NULL)
 		update();
-	}
+	
 }
 
 void Graph::Gerer_les_villes()
@@ -122,16 +193,3 @@ void Graph::A_propos()
 		"<p> .................. Jonas Lamy, Jéremy Prime, David Bonnier</p>");
 }
 
-void Graph::paintEvent(QPaintEvent * evt)
-{
-	if (!m_Image.isNull()||!m_pixmap.isNull())
-	{
-		m_pixmap = QPixmap::fromImage(m_Image) ;
-		int h = m_pixmap.height() ;
-		int w = m_pixmap.width() ;
-		m_Dim.setX(w);
-		m_Dim.setY(h) ;
-		ui.imageLabel ->setGeometry(0,0,m_Dim.x(),m_Dim.y()) ;
-		ui.imageLabel->setPixmap(m_pixmap) ;
-	}
-}
