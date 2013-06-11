@@ -1,4 +1,5 @@
 #include "graph.h"
+
 #include "QFileDialog"
 #include "QMessageBox"
 #include "QPaintEvent"
@@ -9,6 +10,10 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	m_view = new CCarteView ();
 	setCentralWidget(m_view);
+	ui.radioButtonAddVilles->setChecked(true);
+	ui.radioButtonSuppVille->setChecked(false);
+
+	m_data = NULL;
 
 	//Initialisation des scrollBar quand image est trop grand
 	scrollArea = new QScrollArea;
@@ -25,9 +30,16 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 
 	//Connection pour le menu Outils
 	connect (ui.actionOuvrir_une_Image,SIGNAL(triggered()),this,SLOT(Ouvrir_une_Image()));
+
 	connect (ui.actionG_rer_les_villes,SIGNAL(triggered()),this,SLOT(Gerer_les_villes()));
+	bool test =connect (ui.radioButtonAddVilles,SIGNAL(clicked()),this,SLOT(changeBoolVille()));
+	test =connect (ui.radioButtonSuppVille,SIGNAL(clicked()),this,SLOT(changeBoolVille()));
+
 	connect (ui.actionG_rer_les_routes,SIGNAL(triggered()),this,SLOT(Gerer_les_routes()));
+	connect (ui.actionG_rer_les_parcours,SIGNAL(triggered()),this,SLOT(Gestion_des_parcours()));
+
 	ui.dockWidgetGestionRoutes->hide();
+	ui.dockWidgetGestionParcours->hide();
 
 	//Connection pour le menu Option
 	connect (ui.actionChoix_r_pertoire,SIGNAL(triggered()),this,SLOT(Choix_repertoire()));
@@ -35,13 +47,42 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 
 	//Connection pour le menu Aide
 	connect (ui.actionAide,SIGNAL(triggered()),this,SLOT(Aide()));
-	connect (ui.actionA_propos,SIGNAL(triggered()),this,SLOT(A_propos()));
+	connect (ui.actionA_Propos,SIGNAL(triggered()),this,SLOT(A_propos()));
 
-	m_nomRepetoire = "../";
+	if(!msg.IsOk())
+	{
+		QString titre = "Graphe";
+		int rep = QMessageBox::critical(this, titre, "Travail impossible pas de fichier Message.mes", QMessageBox::Escape);
+		exit(0);
+	}
 
+	m_nomRepetoire = "./Resources/";
+
+	//change de valeur si le fichier GPH a été modifié
 	modif = false;
 
-	setWindowTitle("Mon petit ravail sur les graphes : nofichier : noImage");
+	setWindowTitle(msg.getMessage(1));
+	ui.actionA_Propos->setStatusTip(msg.getMessage(51));
+	ui.actionChoix_r_pertoire->setStatusTip(msg.getMessage(42));
+	ui.actionFermer->setStatusTip(msg.getMessage(28));
+	ui.actionG_rer_les_parcours->setStatusTip(msg.getMessage(53));
+	ui.actionG_rer_les_routes->setStatusTip(msg.getMessage(46));
+	ui.actionG_rer_les_villes->setStatusTip(msg.getMessage(44));
+	ui.actionOuvrir->setStatusTip(msg.getMessage(22));
+	ui.actionOuvrir_une_Image->setStatusTip(msg.getMessage(33));
+	ui.actionQuitter->setStatusTip(msg.getMessage(30));
+	ui.actionRestaurer->setStatusTip(msg.getMessage(48));
+	ui.actionSauver->setStatusTip(msg.getMessage(24));
+	ui.actionSauver_sous->setStatusTip(msg.getMessage(26));
+	ui.radioButtonVilleDep->setStatusTip(msg.getMessage(69));
+	ui.radioButtonVilleFin->setStatusTip(msg.getMessage(71));
+	ui.radioButtonSaisiRoute->setStatusTip(msg.getMessage(65));
+	ui.radioButtonAddVilles->setStatusTip(msg.getMessage(61));
+	ui.radioButtonSuppRoute->setStatusTip(msg.getMessage(67));
+	ui.radioButtonSuppVille->setStatusTip(msg.getMessage(63));
+	ui.pushButtonClearParcours->setStatusTip(msg.getMessage(81));
+	
+
 }
 
 Graph::~Graph()
@@ -56,31 +97,33 @@ void Graph::Ouvrir()
 	MaMap mappou;
 
 	//Chargement du fichier .GPH
-	nameFile = QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.gph)"));
+	nameFile = QFileDialog::getOpenFileName(this,msg.getMessage(2),m_nomRepetoire,msg.getMessage(3));
 	
 	int ouverture = CGestionnaire::Chargement(nameFile, nameImg, mappou, vect);
 	//Traitement des erreurs lors de l'ouverture
 	switch(ouverture)
 	{
 	case 1:
-		QMessageBox::warning(this, tr("Ouverture Fichier"),
-				tr("Fichier pas ouvert."));
+
+		return;
 		break;
 	case 2:
-		QMessageBox::warning(this, tr("Ouverture Fichier"),
-				tr("Ce n'est pas un fichier '.gph'."));
+		QMessageBox::warning(this, msg.getMessage(2000),
+				msg.getMessage(2021));
+		return;
 		break;
 	case 3:
-		QMessageBox::warning(this, tr("Ouverture Fichier"),
-				tr("Image pas ouverte."));
+		QMessageBox::warning(this, msg.getMessage(2000),
+				msg.getMessage(2023));
+		return;
 		break;
 	case 4:
-		QMessageBox::warning(this, tr("Ouverture Fichier"),
-				tr("Pas de ville a charger."));
+		QMessageBox::warning(this, msg.getMessage(2000),
+				msg.getMessage(2024));
 		break;
 	case 5:
-		QMessageBox::warning(this, tr("Ouverture Fichier"),
-				tr("Pas de Distance."));
+		QMessageBox::warning(this, msg.getMessage(2000),
+			msg.getMessage(2025));
 		break;
 	}
 
@@ -88,9 +131,12 @@ void Graph::Ouvrir()
 	m_data =new CCarteData(vect, mappou, nameFile, nameImg);
 
 	//MàJ du nom de la fenetre
-	setWindowTitle("Mon petit travail sur les graphes : "+m_data->getNomFichier()+" : "+ m_data->getNomImage());
+
+	
+	setWindowTitle(m_data->getNomImage());
 
 	m_view->setData(m_data);
+
 }
 
 void Graph::Quitter()
@@ -98,8 +144,8 @@ void Graph::Quitter()
 	if(modif)
 	{
 		QMessageBox msgBox;
-		msgBox.setText("Le document a été modifié");
-		msgBox.setInformativeText("Voulez vous sauvegarder vos changements?");
+		msgBox.setText(msg.getMessage(0204));
+		msgBox.setInformativeText(msg.getMessage(0203));
 		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
 		msgBox.setDefaultButton(QMessageBox::Save);
 		int ret = msgBox.exec();
@@ -121,13 +167,13 @@ void Graph::Quitter()
 
 void Graph::Sauver()
 {
-	if(!(m_data->getNomFichier().isEmpty()))
+	if(m_data!= NULL)
 		CGestionnaire::Sauvegarde(m_data->getNomFichier(), m_data->getNomImage(), m_data->getMapVille(), m_data->getTableRoutage());
 }
 
 void Graph::Sauver_sous()
 {
-	m_data->getNomFichier() = QFileDialog::getSaveFileName(this,tr("Sauvgarder Fichier"),m_nomRepetoire,tr("(*.gph)"));
+	m_data->getNomFichier() = QFileDialog::getSaveFileName(this,msg.getMessage(5),m_nomRepetoire,msg.getMessage(3));
 	Sauver();
 }
 
@@ -136,8 +182,8 @@ void Graph::Fermer()
 	if(modif)
 	{
 		QMessageBox msgBox;
-		msgBox.setText("Le document a été modifié");
-		msgBox.setInformativeText("Voulez vous sauvegarder vos changements?");
+		msgBox.setText(msg.getMessage(0204));
+		msgBox.setInformativeText(msg.getMessage(0203));
 		msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
 		msgBox.setDefaultButton(QMessageBox::Save);
 		int ret = msgBox.exec();
@@ -153,50 +199,73 @@ void Graph::Fermer()
 			break;
 		}
 	}
-	setWindowTitle("Mon petit ravail sur les graphes : nofichier : noImage");
+	setWindowTitle(msg.getMessage(1));
 	update();
 }
 
 void Graph::Ouvrir_une_Image()
 {
-	m_data->setNomImage(QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.jpg)")));
-	m_view->setData(m_data);
+	QString NomImage(QFileDialog::getOpenFileName(this,msg.getMessage(7),m_nomRepetoire,msg.getMessage(8)));
 
-	if(m_data->getNomImage() != NULL)
+	if(NomImage != NULL)
 	{
+		m_data->setNomImage(NomImage);
+		m_view->setData(m_data);
 		update();
 	}
 }
 
 void Graph::Gerer_les_villes()
 {
-	if (ui.actionG_rer_les_villes->isChecked())
+	if(ui.actionG_rer_les_villes->isChecked())
 	{
-		ui.actionG_rer_les_villes->setChecked(true);
+		ui.actionG_rer_les_parcours->setChecked(false);
+		ui.dockWidgetGestionParcours->hide();
 		ui.actionG_rer_les_routes->setChecked(false);
-		ui.dockWidgetGestionVilles->show();
 		ui.dockWidgetGestionRoutes->hide();
+		ui.dockWidgetGestionVilles->show();
 	}
 	else
-		ui.actionG_rer_les_villes->setChecked(true);
+	{
+		ui.dockWidgetGestionVilles->hide();
+	}
 }
 
 void Graph::Gerer_les_routes()
 {
-	if (ui.actionG_rer_les_routes->isChecked())
+	if(ui.actionG_rer_les_routes->isChecked())
 	{
-		ui.actionG_rer_les_routes->setChecked(true);
+		ui.actionG_rer_les_parcours->setChecked(false);
+		ui.dockWidgetGestionParcours->hide();
 		ui.actionG_rer_les_villes->setChecked(false);
-		ui.dockWidgetGestionRoutes->show();
 		ui.dockWidgetGestionVilles->hide();
+		ui.dockWidgetGestionRoutes->show();
 	}
 	else
-		ui.actionG_rer_les_routes->setChecked(true);
+	{
+		ui.dockWidgetGestionRoutes->hide();
+	}
+}
+
+void Graph::Gestion_des_parcours()
+{
+	if(ui.actionG_rer_les_parcours->isChecked())
+	{
+		ui.actionG_rer_les_routes->setChecked(false);
+		ui.dockWidgetGestionRoutes->hide();
+		ui.actionG_rer_les_villes->setChecked(false);
+		ui.dockWidgetGestionVilles->hide();
+		ui.dockWidgetGestionParcours->show();
+	}
+	else
+	{
+		ui.dockWidgetGestionParcours->hide();
+	}
 }
 
 void Graph::Choix_repertoire()
 {
-	m_nomRepetoire = QFileDialog::getExistingDirectory(this,tr("Choix du répertoire de stockage des fichier *.gph et image *.jpg"),m_nomRepetoire);
+	m_nomRepetoire = QFileDialog::getExistingDirectory(this,msg.getMessage(10),m_nomRepetoire);
 }
 
 void Graph::Restaurer()
@@ -209,16 +278,17 @@ void Graph::Restaurer()
 	ui.dockWidgetGestionRoutes->hide();
 }
 
-void Graph::Aide()
-{
-
-}
 
 void Graph::A_propos()
 {
-	QMessageBox::about(this,"Mon petit travail sur les graphes",
-		"---------------- Ma petite gestion des routes ---------------"
-		"<p> Version 1.0.1 </p>"
-		"<p> .................. Jonas Lamy, Jéremy Prime, David Bonnier</p>");
+	QString title = msg.getMessage(1);
+	QString texte = msg.getMessage(101)+msg.getMessage(102)+msg.getMessage(103)+msg.getMessage(104);
+
+	QMessageBox::about(this,title, texte);
 }
 
+void Graph::changeBoolVille()
+{
+	m_view->setAddVille(!m_view->getAddVille());
+	m_view->setSupprVille(!m_view->getSupprVille());
+}

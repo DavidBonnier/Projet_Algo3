@@ -4,6 +4,8 @@
 #include <QList.h>
 #include <qmouseevent>
 #include <QList.h>
+#include <qinputdialog.h>
+#include <qmessagebox.h>
 
 #include "CarteData.h"
 
@@ -17,14 +19,31 @@ public:
 
 private:
 	CCarteData *m_pdata;
-	int Recherche(int debut, int fin);
-	QList<int> RechercheC(int debut, int fin);
-	QList<int> Recherche(QList<int> maFile, Table marque, int debut, int fin);
+	QList<int> Recherche(int debut, int fin);
+
+	int m_villeDebut;
+	int m_villeFin;
+
+	bool m_bDwVille;
+	bool m_bAddVille;
+	bool m_bSupprVille;
+
+	bool m_bDwRoute;
+	bool m_bAddRoute;
+	bool m_bSupprRoute;
 
 public:
 	void setData(CCarteData *data);
 	//Methodes
 	void paintEvent(QPaintEvent *event);
 	void mousePressEvent(QMouseEvent *event);
-};
 
+	void setAddVille(bool add);
+	void setSupprVille(bool suppr);
+
+	bool getAddVille(){return m_bAddVille;}
+	bool getSupprVille(){return m_bSupprVille;}
+
+	CVille selectVille(int x, int y);
+
+};

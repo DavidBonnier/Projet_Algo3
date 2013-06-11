@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,7 @@
     <addaction name="separator"/>
     <addaction name="actionG_rer_les_villes"/>
     <addaction name="actionG_rer_les_routes"/>
+    <addaction name="actionG_rer_les_parcours"/>
    </widget>
    <widget class="QMenu" name="menuOption">
     <property name="title">
@@ -51,17 +52,16 @@
     <addaction name="actionChoix_r_pertoire"/>
     <addaction name="actionRestaurer"/>
    </widget>
-   <widget class="QMenu" name="menuAide">
+   <widget class="QMenu" name="menuA_propos">
     <property name="title">
-     <string>Aide</string>
+     <string>? </string>
     </property>
-    <addaction name="actionAide"/>
-    <addaction name="actionA_propos"/>
+    <addaction name="actionA_Propos"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuOutils"/>
    <addaction name="menuOption"/>
-   <addaction name="menuAide"/>
+   <addaction name="menuA_propos"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -85,9 +85,9 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QRadioButton" name="radioButtonSaisiVilles">
+      <widget class="QRadioButton" name="radioButtonAddVilles">
        <property name="text">
-        <string>Saisir une ville</string>
+        <string>Ajouter une ville</string>
        </property>
       </widget>
      </item>
@@ -98,10 +98,26 @@
        </property>
       </widget>
      </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidgetGestionRoutes">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 0);</string>
    </property>
@@ -114,18 +130,31 @@
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="radioButtonSaisiRoute">
        <property name="text">
         <string>Saisir une route</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="radioButtonSuppRoute">
        <property name="text">
         <string>Supprimer une route</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
@@ -143,7 +172,21 @@
    <widget class="QWidget" name="dockWidgetContents_4">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QRadioButton" name="radioButtonVilleDep">
+       <property name="text">
+        <string>Saisir la ville de départ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButtonVilleFin">
+       <property name="text">
+        <string>Saisir la ville d'arrivé</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonClearParcours">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
@@ -151,6 +194,19 @@
         <string>Effacer le parcours</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
@@ -222,6 +278,19 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionG_rer_les_parcours">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Gérer les parcours</string>
+   </property>
+  </action>
+  <action name="actionA_Propos">
+   <property name="text">
+    <string>A Propos</string>
    </property>
   </action>
  </widget>

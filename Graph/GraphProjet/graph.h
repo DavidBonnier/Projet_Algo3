@@ -6,6 +6,7 @@
 #include "Gestionnaire.h"
 #include "CarteView.h"
 #include "CarteData.h"
+#include "Message.h"
 #include <qscrollarea.h>
 
 
@@ -21,6 +22,7 @@ private:
 	Ui::GraphClass ui;
 
 	bool modif;
+	CMessage msg;
 
 	QPoint m_Dim;
 	QString m_nomRepetoire;
@@ -44,12 +46,14 @@ public slots:
 	//Montre ou cache les dockWidget de gauche
 	void Gerer_les_villes();
 	void Gerer_les_routes();
+	void Gestion_des_parcours();
 	//Choisit un repertoire courant ou sera stocker les .gph et .jpg
 	void Choix_repertoire();
 	//Remet la fenetre dans l'état initial
 	void Restaurer();
+	//change les booleen add et suppr des villes de CarteView
+	void changeBoolVille();
 
-	void Aide();
 	//Donne le nom du programme et des personne du groupes
 	void A_propos();
 };

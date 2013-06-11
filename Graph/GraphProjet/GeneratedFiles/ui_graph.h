@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'graph.ui'
 **
-** Created: Mon 10. Jun 15:04:06 2013
-**      by: Qt User Interface Compiler version 4.8.3
+** Created: Tue 11. Jun 16:33:06 2013
+**      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -21,6 +21,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
@@ -43,35 +44,42 @@ public:
     QAction *actionRestaurer;
     QAction *actionAide;
     QAction *actionA_propos;
+    QAction *actionG_rer_les_parcours;
+    QAction *actionA_Propos;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_4;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuOutils;
     QMenu *menuOption;
-    QMenu *menuAide;
+    QMenu *menuA_propos;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QDockWidget *dockWidgetGestionVilles;
     QWidget *dockWidgetContents;
     QVBoxLayout *verticalLayout;
-    QRadioButton *radioButtonSaisiVilles;
+    QRadioButton *radioButtonAddVilles;
     QRadioButton *radioButtonSuppVille;
+    QSpacerItem *verticalSpacer;
     QDockWidget *dockWidgetGestionRoutes;
     QWidget *dockWidgetContents_3;
     QVBoxLayout *verticalLayout_3;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton;
+    QRadioButton *radioButtonSaisiRoute;
+    QRadioButton *radioButtonSuppRoute;
+    QSpacerItem *verticalSpacer_2;
     QDockWidget *dockWidgetGestionParcours;
     QWidget *dockWidgetContents_4;
     QVBoxLayout *verticalLayout_2;
-    QPushButton *pushButton;
+    QRadioButton *radioButtonVilleDep;
+    QRadioButton *radioButtonVilleFin;
+    QPushButton *pushButtonClearParcours;
+    QSpacerItem *verticalSpacer_3;
 
     void setupUi(QMainWindow *GraphClass)
     {
         if (GraphClass->objectName().isEmpty())
             GraphClass->setObjectName(QString::fromUtf8("GraphClass"));
-        GraphClass->resize(600, 400);
+        GraphClass->resize(600, 690);
         actionOuvrir = new QAction(GraphClass);
         actionOuvrir->setObjectName(QString::fromUtf8("actionOuvrir"));
         actionSauver = new QAction(GraphClass);
@@ -99,6 +107,11 @@ public:
         actionAide->setObjectName(QString::fromUtf8("actionAide"));
         actionA_propos = new QAction(GraphClass);
         actionA_propos->setObjectName(QString::fromUtf8("actionA_propos"));
+        actionG_rer_les_parcours = new QAction(GraphClass);
+        actionG_rer_les_parcours->setObjectName(QString::fromUtf8("actionG_rer_les_parcours"));
+        actionG_rer_les_parcours->setCheckable(true);
+        actionA_Propos = new QAction(GraphClass);
+        actionA_Propos->setObjectName(QString::fromUtf8("actionA_Propos"));
         centralWidget = new QWidget(GraphClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_4 = new QVBoxLayout(centralWidget);
@@ -115,8 +128,8 @@ public:
         menuOutils->setObjectName(QString::fromUtf8("menuOutils"));
         menuOption = new QMenu(menuBar);
         menuOption->setObjectName(QString::fromUtf8("menuOption"));
-        menuAide = new QMenu(menuBar);
-        menuAide->setObjectName(QString::fromUtf8("menuAide"));
+        menuA_propos = new QMenu(menuBar);
+        menuA_propos->setObjectName(QString::fromUtf8("menuA_propos"));
         GraphClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(GraphClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -134,20 +147,25 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        radioButtonSaisiVilles = new QRadioButton(dockWidgetContents);
-        radioButtonSaisiVilles->setObjectName(QString::fromUtf8("radioButtonSaisiVilles"));
+        radioButtonAddVilles = new QRadioButton(dockWidgetContents);
+        radioButtonAddVilles->setObjectName(QString::fromUtf8("radioButtonAddVilles"));
 
-        verticalLayout->addWidget(radioButtonSaisiVilles);
+        verticalLayout->addWidget(radioButtonAddVilles);
 
         radioButtonSuppVille = new QRadioButton(dockWidgetContents);
         radioButtonSuppVille->setObjectName(QString::fromUtf8("radioButtonSuppVille"));
 
         verticalLayout->addWidget(radioButtonSuppVille);
 
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
+
         dockWidgetGestionVilles->setWidget(dockWidgetContents);
         GraphClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidgetGestionVilles);
         dockWidgetGestionRoutes = new QDockWidget(GraphClass);
         dockWidgetGestionRoutes->setObjectName(QString::fromUtf8("dockWidgetGestionRoutes"));
+        dockWidgetGestionRoutes->setEnabled(true);
         dockWidgetGestionRoutes->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 0);"));
         dockWidgetGestionRoutes->setWindowTitle(QString::fromUtf8("Gestion des routes"));
         dockWidgetContents_3 = new QWidget();
@@ -156,15 +174,19 @@ public:
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        radioButton_2 = new QRadioButton(dockWidgetContents_3);
-        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
+        radioButtonSaisiRoute = new QRadioButton(dockWidgetContents_3);
+        radioButtonSaisiRoute->setObjectName(QString::fromUtf8("radioButtonSaisiRoute"));
 
-        verticalLayout_3->addWidget(radioButton_2);
+        verticalLayout_3->addWidget(radioButtonSaisiRoute);
 
-        radioButton = new QRadioButton(dockWidgetContents_3);
-        radioButton->setObjectName(QString::fromUtf8("radioButton"));
+        radioButtonSuppRoute = new QRadioButton(dockWidgetContents_3);
+        radioButtonSuppRoute->setObjectName(QString::fromUtf8("radioButtonSuppRoute"));
 
-        verticalLayout_3->addWidget(radioButton);
+        verticalLayout_3->addWidget(radioButtonSuppRoute);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer_2);
 
         dockWidgetGestionRoutes->setWidget(dockWidgetContents_3);
         GraphClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidgetGestionRoutes);
@@ -178,11 +200,25 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        pushButton = new QPushButton(dockWidgetContents_4);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        radioButtonVilleDep = new QRadioButton(dockWidgetContents_4);
+        radioButtonVilleDep->setObjectName(QString::fromUtf8("radioButtonVilleDep"));
 
-        verticalLayout_2->addWidget(pushButton);
+        verticalLayout_2->addWidget(radioButtonVilleDep);
+
+        radioButtonVilleFin = new QRadioButton(dockWidgetContents_4);
+        radioButtonVilleFin->setObjectName(QString::fromUtf8("radioButtonVilleFin"));
+
+        verticalLayout_2->addWidget(radioButtonVilleFin);
+
+        pushButtonClearParcours = new QPushButton(dockWidgetContents_4);
+        pushButtonClearParcours->setObjectName(QString::fromUtf8("pushButtonClearParcours"));
+        pushButtonClearParcours->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+
+        verticalLayout_2->addWidget(pushButtonClearParcours);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_3);
 
         dockWidgetGestionParcours->setWidget(dockWidgetContents_4);
         GraphClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidgetGestionParcours);
@@ -190,7 +226,7 @@ public:
         menuBar->addAction(menuFichier->menuAction());
         menuBar->addAction(menuOutils->menuAction());
         menuBar->addAction(menuOption->menuAction());
-        menuBar->addAction(menuAide->menuAction());
+        menuBar->addAction(menuA_propos->menuAction());
         menuFichier->addAction(actionOuvrir);
         menuFichier->addAction(actionSauver);
         menuFichier->addAction(actionSauver_sous);
@@ -200,10 +236,10 @@ public:
         menuOutils->addSeparator();
         menuOutils->addAction(actionG_rer_les_villes);
         menuOutils->addAction(actionG_rer_les_routes);
+        menuOutils->addAction(actionG_rer_les_parcours);
         menuOption->addAction(actionChoix_r_pertoire);
         menuOption->addAction(actionRestaurer);
-        menuAide->addAction(actionAide);
-        menuAide->addAction(actionA_propos);
+        menuA_propos->addAction(actionA_Propos);
 
         retranslateUi(GraphClass);
 
@@ -225,15 +261,19 @@ public:
         actionRestaurer->setText(QApplication::translate("GraphClass", "Restaurer", 0, QApplication::UnicodeUTF8));
         actionAide->setText(QApplication::translate("GraphClass", "Aide", 0, QApplication::UnicodeUTF8));
         actionA_propos->setText(QApplication::translate("GraphClass", "A propos", 0, QApplication::UnicodeUTF8));
+        actionG_rer_les_parcours->setText(QApplication::translate("GraphClass", "G\303\251rer les parcours", 0, QApplication::UnicodeUTF8));
+        actionA_Propos->setText(QApplication::translate("GraphClass", "A Propos", 0, QApplication::UnicodeUTF8));
         menuFichier->setTitle(QApplication::translate("GraphClass", "Fichier", 0, QApplication::UnicodeUTF8));
         menuOutils->setTitle(QApplication::translate("GraphClass", "Outils", 0, QApplication::UnicodeUTF8));
         menuOption->setTitle(QApplication::translate("GraphClass", "Option", 0, QApplication::UnicodeUTF8));
-        menuAide->setTitle(QApplication::translate("GraphClass", "Aide", 0, QApplication::UnicodeUTF8));
-        radioButtonSaisiVilles->setText(QApplication::translate("GraphClass", "Saisir une ville", 0, QApplication::UnicodeUTF8));
+        menuA_propos->setTitle(QApplication::translate("GraphClass", "? ", 0, QApplication::UnicodeUTF8));
+        radioButtonAddVilles->setText(QApplication::translate("GraphClass", "Ajouter une ville", 0, QApplication::UnicodeUTF8));
         radioButtonSuppVille->setText(QApplication::translate("GraphClass", "Supprimer une ville", 0, QApplication::UnicodeUTF8));
-        radioButton_2->setText(QApplication::translate("GraphClass", "Saisir une route", 0, QApplication::UnicodeUTF8));
-        radioButton->setText(QApplication::translate("GraphClass", "Supprimer une route", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("GraphClass", "Effacer le parcours", 0, QApplication::UnicodeUTF8));
+        radioButtonSaisiRoute->setText(QApplication::translate("GraphClass", "Saisir une route", 0, QApplication::UnicodeUTF8));
+        radioButtonSuppRoute->setText(QApplication::translate("GraphClass", "Supprimer une route", 0, QApplication::UnicodeUTF8));
+        radioButtonVilleDep->setText(QApplication::translate("GraphClass", "Saisir la ville de d\303\251part", 0, QApplication::UnicodeUTF8));
+        radioButtonVilleFin->setText(QApplication::translate("GraphClass", "Saisir la ville d'arriv\303\251", 0, QApplication::UnicodeUTF8));
+        pushButtonClearParcours->setText(QApplication::translate("GraphClass", "Effacer le parcours", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -1,0 +1,125 @@
+//;                  Graphe
+//;************************************************************
+//;*  comment
+//;*     de 0001 à 0100   : les entetes
+//;*     de 0101 à 0999   : les commentaires
+//;*     de 1000  à 4999  : les messages d'erreurs
+//;*************************************************************
+//; les entetes
+0001; Mon petit travail sur les graphes
+0002; Ouverture d'un fichier gph ( graphe)
+0003; Graphes(*.gph);;Tout fichier (*.*)
+0004; Graphe
+0005; Sauvegarde d'un fichier Graphe
+0007; Ouverture d'un fichier Image 
+0008; Fichier image(*.jpg);;Tout fichier (*.*)
+0009; Graphe
+0010; Choix du répertoire de stockage des fichier *.gph et image *.jpg
+//; les titres de menu
+0020; Fichier
+0021; Ouvrir
+0022; Ouvrir un fichier .gph
+0023; Sauver
+0024; Sauver un fichier *.gph 
+0025; Sauver sous
+0026; Sauvegarder sous un autre nom
+0027; Fermer
+0028; Fermer le fichier programme en cours
+0029; Quitter
+0030; Quitter l'application
+0031; Outils
+0032; Ouvrir une Image
+0033; Ouvrir une image *.jpg
+0040; Option
+0041; Choix répertoire 
+0042; Choix du répertoire des fichiers *.gph et *.jpg
+0043; Gérer les villes
+0044; pour créer ou supprimer des villes
+0045; Gérer les routes
+0046; pour créer ou supprimer des routes entre deux villes existantes 
+0047; Restaurer
+0048; Restaurer la fenetre dans son etat initial 
+0050; A propos
+0051; A propos de cette application
+0052; Gérer les parcours
+0053; pour saisir les villes de départ et d'arriver, et afficher le parcours
+//; =================les boutons=================================
+0060; Ajouter une ville
+0061; selectionner + Clique droit à l'endroit de la ville 
+0062; Supprimer une ville
+0063; selectionner + Clique droit sur ville 
+0064; Saisir une route
+0065; Cliquer à droite sur la premiere ville puis sur la seconde et valider
+0066; Supprimer une route
+0067; Cliquer à droite sur la premiere ville puis sur la seconde et valider 
+0068; Saisir une ville de départ
+0069; selectionner + Clique droit sur la ville de départ
+0070; Saisir une ville d'arrivé
+0071; selectionner + Clique droit sur la ville d'arrivé
+0080; Effacer le parcours
+0081; pour effacer un parcours trouver entre 2 villes
+0082; Gestion Ville/Route
+0083; Pour passer la gestion des villes à celle des routes et réciproquement : cliquer sur le bouton
+0090; Gestion des villes
+0091; pour Gérer ( créer ou supprimer des villes)
+0092; Gestion des routes
+0093; pour Gérer ( créer ou supprimer des routes)
+0094; Gestion des parcours
+0095; pour chercher un parcours entre deux villes existantes 
+//;************************************************************
+//;
+//; 					Commentaires
+//;
+//;************************************************************
+0101; <p> -----------Ma petite gestion des routes------------</p> 
+0102; <p>  Version 1.0.2 </p>
+0103; <p>...........................................  JL DB JP   2013  </p>
+0104; <P>............ Une petite Aide.....................</p> 
+0200; Gestion de la sauvegarde
+0201; Voulez-vous sauvegarder le fichier ?
+0202; Gestion du graphe
+0203; Voulez-vous sauvegarder les modifications ? 
+0204; Le document a été modifié
+0300; Saisir un nom de ville 
+0301; Quel nom de ville ici ?
+0310; Voulez-vous supprimer la ville :  
+0311; Suppression d'une ville 
+0320; Choix de route
+0321; Votre première ville est 
+0322; Cliquez sur la deuxieme ville "
+0325; Tracer une route
+0326; Votre deuxième ville est
+0327; Quelle est la distance entre ces deux villes ?  
+0330; Voulez_vous supprimer la route entre 
+0331; et 
+0332; Suppression d'une route 
+0340; Recherche de route
+0341; <p>Recherche d'un parcours entre </p>
+0342; Recherche d'un parcours
+0343; <p> on n'a pas trouvé de parcours </p>
+0344; <P> on a trouvé un chemin </p>
+0345; <p> la distance est  : 
+//;************************************************************
+//;
+//;                        Messages
+//;
+//;************************************************************
+1999; Erreur inconnue
+2000; Ouverture d'un fichier graphe( *.gph)
+2001; Aucun programme de chargé ==> travail impossible
+2002; Aucun programme de chargé ==> Sauvegarde impossible
+2003; Ce répertoire n'existe pas : 
+2004; pas d'image à sauvegarder
+2005; ce fichier n'est pas un fichier image : 
+2006; Err 4 : Ce fichier image n'existe pas :
+2007; Ouverture d'un fichier image( *.jpg) 
+2010; Nombre de lignes incorrectes dans le fichier 
+2020; Fichier invalide
+2021; Err = 2 : Ce n'est pas un fichier graphe (*.gph) 
+2022; Err = 1 : ce fichier n'existe pas 
+2023; Err = 3 : Absence de label Image dans le fichier *.gph
+2024; Err = 5 : pas de label Ville dans le fichier *.gph
+2025; Err = 6 : pas de label Distance dans le fichier *.gph
+2026; Err = 7 : Discordance entre le label Ville et la taille du fichier 
+2100; Attention 
+2101; Pas de ville ici 

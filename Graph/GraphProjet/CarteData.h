@@ -5,12 +5,12 @@
 #include <qobject.h>
 #include <qlist.h>
 #include <qpoint.h>
+#include <qinputdialog.h>
 
 #include "Ville.h"
 
 typedef QVector<QVector<int>> Table;
 typedef QMap<int, CVille> MaMap;
-
 
 class CCarteData
 {
@@ -20,7 +20,7 @@ private:
 	Table m_tableRoutage;
 	MaMap m_mapVille;
 	QList <int> m_parcours;
-	QList <QPoint> m_pointClique;
+	QList<QPoint> m_pointClique;
 
 public:	
 	CCarteData();
@@ -28,7 +28,9 @@ public:
 	~CCarteData(void);
 
 	//Methodes get puis set
-	QList<int> getParcours() {return m_parcours;};
+	QList<QPoint> getPointClique(){return m_pointClique;}
+	QList<int> getParcours() {return m_parcours;}
+
 	QString getNomFichier(){return m_nomFichier;}
 	QString getNomImage(){return m_nomImage;}
 	Table getTableRoutage(){ return m_tableRoutage;}
@@ -39,6 +41,11 @@ public:
 	void setTableRoutage(Table route);
 	void setMapVille(MaMap cityMap);
 	void setParcours(QList<int> parcours);
+
+	//gestion des villes
+	void ajouterVille(int x, int y,QString str);
+
+	void ajouterRoute(CVille villeDeb, CVille villeFin);
 
 };
 
