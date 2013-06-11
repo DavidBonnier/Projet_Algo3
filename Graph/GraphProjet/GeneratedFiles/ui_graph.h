@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'graph.ui'
 **
-** Created: Tue 11. Jun 16:33:06 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created: Tue 11. Jun 23:41:12 2013
+**      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -149,6 +149,7 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         radioButtonAddVilles = new QRadioButton(dockWidgetContents);
         radioButtonAddVilles->setObjectName(QString::fromUtf8("radioButtonAddVilles"));
+        radioButtonAddVilles->setChecked(true);
 
         verticalLayout->addWidget(radioButtonAddVilles);
 
@@ -176,6 +177,7 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         radioButtonSaisiRoute = new QRadioButton(dockWidgetContents_3);
         radioButtonSaisiRoute->setObjectName(QString::fromUtf8("radioButtonSaisiRoute"));
+        radioButtonSaisiRoute->setChecked(true);
 
         verticalLayout_3->addWidget(radioButtonSaisiRoute);
 
@@ -202,6 +204,7 @@ public:
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         radioButtonVilleDep = new QRadioButton(dockWidgetContents_4);
         radioButtonVilleDep->setObjectName(QString::fromUtf8("radioButtonVilleDep"));
+        radioButtonVilleDep->setChecked(true);
 
         verticalLayout_2->addWidget(radioButtonVilleDep);
 

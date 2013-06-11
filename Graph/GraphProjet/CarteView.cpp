@@ -6,28 +6,12 @@
 CCarteView::CCarteView()
 {
 	m_pdata=NULL;
-
-	m_bDwVille = true;
-	m_bAddVille = true;
-	m_bSupprVille = false;
 }
 
 CCarteView::CCarteView(CCarteData *donnerCarte)
 	: m_pdata(donnerCarte)
 {
 }
-
-
-void CCarteView::setAddVille(bool add)
-{
-	m_bAddVille = add;
-}
-
-void CCarteView::setSupprVille(bool suppr)
-{
-	m_bSupprVille =suppr;
-}
-
 
 
 CCarteView::CCarteView(QWidget *parent)
@@ -195,29 +179,26 @@ void CCarteView::paintEvent(QPaintEvent * event)
 	}
 }
 
-CVille selectVille(int x, int y)
-{
-
-}
-
 void CCarteView::mousePressEvent(QMouseEvent *event)
 {
-
+	int x = event->x();
+	int y = event->y();
 	
-	//le dockWidgetVille est visible et le boutton ajouter ville est coché
-	if(m_bDwVille && event->button() == Qt::MouseButton::RightButton && m_bAddVille==true)
+	//le boutton ajouter ville est coché et implicitement le dockWidget est affiché
+	if(event->button() == Qt::MouseButton::RightButton && m_pdata->getBoolAddVille())
 	{
 		bool ok;
-		QString str = QInputDialog::getText(this,"blabla","toto",QLineEdit::Normal,"Nom de ville",&ok);          
-		//la chaine n'est pas vide
-		if(str != "")
-			m_pdata->ajouterVille(event->x(), event->y(),str);
+		if(m_pdata->cliquerVille(x,y)!=-1)
+			QMessageBox::warning(this, "Modification de Ville", "Déjà une ville présent a cette endroit");
+		else
+		{
+			QString str = QInputDialog::getText(this,"Opération sur les Villes","Entrez le nom de la Ville",QLineEdit::Normal,"Nom de ville",&ok);          
+			//la chaine n'est pas vide
+			if(str != "")
+				m_pdata->ajouterVille(x, y,str);
+		}
 	}
-	if(m_bDwRoute && event->button()==Qt::MouseButton::RightButton && m_bAddRoute==true)
-	{
-		
 
-	}
 
 }
 

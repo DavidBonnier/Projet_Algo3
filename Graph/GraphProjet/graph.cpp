@@ -10,10 +10,11 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	m_view = new CCarteView ();
 	setCentralWidget(m_view);
-	ui.radioButtonAddVilles->setChecked(true);
-	ui.radioButtonSuppVille->setChecked(false);
+	m_data =new CCarteData();
+	m_view->setData(m_data);
 
-	m_data = NULL;
+	initialisationBoolFaux();
+	m_data->setBoolAddVille(true);
 
 	//Initialisation des scrollBar quand image est trop grand
 	scrollArea = new QScrollArea;
@@ -30,13 +31,15 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 
 	//Connection pour le menu Outils
 	connect (ui.actionOuvrir_une_Image,SIGNAL(triggered()),this,SLOT(Ouvrir_une_Image()));
-
 	connect (ui.actionG_rer_les_villes,SIGNAL(triggered()),this,SLOT(Gerer_les_villes()));
-	bool test =connect (ui.radioButtonAddVilles,SIGNAL(clicked()),this,SLOT(changeBoolVille()));
-	test =connect (ui.radioButtonSuppVille,SIGNAL(clicked()),this,SLOT(changeBoolVille()));
-
+	connect (ui.radioButtonAddVilles,SIGNAL(clicked()),this,SLOT(AjouterVille()));
+	connect (ui.radioButtonSuppVille,SIGNAL(clicked()),this,SLOT(changeBoolVille()));
 	connect (ui.actionG_rer_les_routes,SIGNAL(triggered()),this,SLOT(Gerer_les_routes()));
+	connect (ui.radioButtonSaisiRoute,SIGNAL(clicked()),this,SLOT(AjouterRoute()));
+	connect (ui.radioButtonSuppRoute,SIGNAL(clicked()),this,SLOT(SuppRoute()));
 	connect (ui.actionG_rer_les_parcours,SIGNAL(triggered()),this,SLOT(Gestion_des_parcours()));
+	connect (ui.radioButtonVilleDep,SIGNAL(clicked()),this,SLOT(AjouteVilleDebut()));
+	connect (ui.radioButtonVilleFin,SIGNAL(clicked()),this,SLOT(AjouteVilleFin()));
 
 	ui.dockWidgetGestionRoutes->hide();
 	ui.dockWidgetGestionParcours->hide();
@@ -89,6 +92,16 @@ Graph::~Graph()
 {
 }
 
+void Graph::initialisationBoolFaux()
+{
+	m_data->setBoolAddVille(false);
+	m_data->setBoolSuppVille(false);
+	m_data->setBoolAddRoute(false);
+	m_data->setBoolSuppRoute(false);
+	m_data->setBoolVilleDeb(false);
+	m_data->setBoolVilleFin(false);
+}
+
 void Graph::Ouvrir()
 {
 	QString nameFile;
@@ -128,15 +141,14 @@ void Graph::Ouvrir()
 	}
 
 	//MàJ des attributs de la CCarteData m_data
-	m_data =new CCarteData(vect, mappou, nameFile, nameImg);
+	m_data->setTableRoutage(vect);
+	m_data->setMapVille(mappou);
+	m_data->setNomFichier(nameFile);
+	m_data->setNomImage(nameImg);
 
 	//MàJ du nom de la fenetre
-
-	
-	setWindowTitle(m_data->getNomImage());
-
+	setWindowTitle("Mon petit travail sur les graphes : "+m_data->getNomFichier()+" : "+ m_data->getNomImage());
 	m_view->setData(m_data);
-
 }
 
 void Graph::Quitter()
@@ -224,10 +236,17 @@ void Graph::Gerer_les_villes()
 		ui.actionG_rer_les_routes->setChecked(false);
 		ui.dockWidgetGestionRoutes->hide();
 		ui.dockWidgetGestionVilles->show();
+
+		initialisationBoolFaux();
+		//Quand on afficher le dock on met un a vrai et l'autre a faux
+		m_data->setBoolAddVille(true);
+		ui.radioButtonAddVilles->setChecked(true);
+		ui.radioButtonSuppVille->setChecked(false);
 	}
 	else
 	{
 		ui.dockWidgetGestionVilles->hide();
+		initialisationBoolFaux();
 	}
 }
 
@@ -240,10 +259,17 @@ void Graph::Gerer_les_routes()
 		ui.actionG_rer_les_villes->setChecked(false);
 		ui.dockWidgetGestionVilles->hide();
 		ui.dockWidgetGestionRoutes->show();
+
+		initialisationBoolFaux();
+		//Quand on afficher le dock on met un a vrai et l'autre a faux
+		m_data->setBoolAddRoute(true);
+		ui.radioButtonSaisiRoute->setChecked(true);
+		ui.radioButtonSuppRoute->setChecked(false);
 	}
 	else
 	{
 		ui.dockWidgetGestionRoutes->hide();
+		initialisationBoolFaux();
 	}
 }
 
@@ -256,10 +282,17 @@ void Graph::Gestion_des_parcours()
 		ui.actionG_rer_les_villes->setChecked(false);
 		ui.dockWidgetGestionVilles->hide();
 		ui.dockWidgetGestionParcours->show();
+
+		initialisationBoolFaux();
+		//Quand on afficher le dock on met un a vrai et l'autre a faux
+		m_data->setBoolVilleDeb(true);
+		ui.radioButtonVilleDep->setChecked(true);
+		ui.radioButtonVilleFin->setChecked(false);
 	}
 	else
 	{
 		ui.dockWidgetGestionParcours->hide();
+		initialisationBoolFaux();
 	}
 }
 
@@ -278,7 +311,6 @@ void Graph::Restaurer()
 	ui.dockWidgetGestionRoutes->hide();
 }
 
-
 void Graph::A_propos()
 {
 	QString title = msg.getMessage(1);
@@ -287,8 +319,50 @@ void Graph::A_propos()
 	QMessageBox::about(this,title, texte);
 }
 
-void Graph::changeBoolVille()
+void Graph::AjouterVille()
 {
-	m_view->setAddVille(!m_view->getAddVille());
-	m_view->setSupprVille(!m_view->getSupprVille());
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolAddVille(ui.radioButtonAddVilles->isChecked());
+}
+
+void Graph::SuppVille()
+{
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolSuppVille(ui.radioButtonSuppVille->isChecked());
+}
+
+void Graph::AjouterRoute()
+{
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolAddRoute(ui.radioButtonSaisiRoute->isChecked());
+}
+
+void Graph::SuppRoute()
+{
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolSuppRoute(ui.radioButtonSuppRoute->isChecked());
+}
+
+void Graph::AjouteVilleDebut()
+{
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolVilleDeb(ui.radioButtonVilleDep->isChecked());
+}
+
+void Graph::AjouteVilleFin()
+{
+	//Si on a pu cliquer c'est que le dockWidget est visible
+	initialisationBoolFaux();
+	//Quand on clique desus on met le bool comme le bouton
+	m_data->setBoolVilleFin(ui.radioButtonVilleFin->isChecked());
 }

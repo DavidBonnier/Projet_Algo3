@@ -89,6 +89,9 @@
        <property name="text">
         <string>Ajouter une ville</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -134,6 +137,9 @@
        <property name="text">
         <string>Saisir une route</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -175,6 +181,9 @@
       <widget class="QRadioButton" name="radioButtonVilleDep">
        <property name="text">
         <string>Saisir la ville de départ</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

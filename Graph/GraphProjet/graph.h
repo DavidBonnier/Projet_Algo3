@@ -30,6 +30,8 @@ private:
 	CCarteView *m_view;
 	QScrollArea *scrollArea;
 
+	void initialisationBoolFaux();
+
 public slots:
 	//ouvre un fichier .gph qui est le programme qui contient tout
 	void Ouvrir();
@@ -51,11 +53,16 @@ public slots:
 	void Choix_repertoire();
 	//Remet la fenetre dans l'état initial
 	void Restaurer();
-	//change les booleen add et suppr des villes de CarteView
-	void changeBoolVille();
-
 	//Donne le nom du programme et des personne du groupes
 	void A_propos();
+
+	//slot des radioBoutons
+	void AjouterVille();
+	void SuppVille();
+	void AjouterRoute();
+	void SuppRoute();
+	void AjouteVilleDebut();
+	void AjouteVilleFin();
 };
 
 #endif // GRAPH_H
