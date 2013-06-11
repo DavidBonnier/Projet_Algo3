@@ -6,6 +6,7 @@
 #include "Gestionnaire.h"
 #include "CarteView.h"
 #include "CarteData.h"
+#include <qscrollarea.h>
 
 
 class Graph : public QMainWindow
@@ -25,6 +26,7 @@ private:
 	QString m_nomRepetoire;
 	CCarteData *m_data;
 	CCarteView *m_view;
+	QScrollArea *scrollArea;
 
 public slots:
 	//ouvre un fichier .gph qui est le programme qui contient tout

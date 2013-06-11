@@ -14,7 +14,7 @@ class CGestionnaire
 private:
 
 public:
-	static void Chargement(QString nameFile, QString &image, MaMap &MapVille,Table &vector);
+	static int Chargement(QString &nameFile, QString &image, MaMap &MapVille,Table &vector);
 	static void Sauvegarde(QString nameFile, QString &image, MaMap &MapVille,Table &vector);
 	CGestionnaire(void);
 	~CGestionnaire(void);

@@ -1,11 +1,20 @@
 #include "graph.h"
 #include "QFileDialog"
 #include "QMessageBox"
+#include "QPaintEvent"
 
 Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
+	m_view = new CCarteView ();
+	setCentralWidget(m_view);
+
+	//Initialisation des scrollBar quand image est trop grand
+	scrollArea = new QScrollArea;
+	scrollArea->setBackgroundRole(QPalette::Dark);
+	scrollArea->setWidget(m_view);
+	setCentralWidget(scrollArea);
 
 	//Connection pour le menu Fichier
 	connect (ui.actionOuvrir,SIGNAL(triggered()),this,SLOT(Ouvrir()));
@@ -28,7 +37,7 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 	connect (ui.actionAide,SIGNAL(triggered()),this,SLOT(Aide()));
 	connect (ui.actionA_propos,SIGNAL(triggered()),this,SLOT(A_propos()));
 
-	m_nomRepetoire = "C:/Users/David/GitHub/Projet_Algo3/Fichier";
+	m_nomRepetoire = "../";
 
 	modif = false;
 
@@ -37,8 +46,6 @@ Graph::Graph(QWidget *parent, Qt::WFlags flags)
 
 Graph::~Graph()
 {
-	delete m_data;
-	delete m_view;
 }
 
 void Graph::Ouvrir()
@@ -50,19 +57,40 @@ void Graph::Ouvrir()
 
 	//Chargement du fichier .GPH
 	nameFile = QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.gph)"));
-	CGestionnaire::Chargement(nameFile, nameImg, mappou, vect);
+	
+	int ouverture = CGestionnaire::Chargement(nameFile, nameImg, mappou, vect);
+	//Traitement des erreurs lors de l'ouverture
+	switch(ouverture)
+	{
+	case 1:
+		QMessageBox::warning(this, tr("Ouverture Fichier"),
+				tr("Fichier pas ouvert."));
+		break;
+	case 2:
+		QMessageBox::warning(this, tr("Ouverture Fichier"),
+				tr("Ce n'est pas un fichier '.gph'."));
+		break;
+	case 3:
+		QMessageBox::warning(this, tr("Ouverture Fichier"),
+				tr("Image pas ouverte."));
+		break;
+	case 4:
+		QMessageBox::warning(this, tr("Ouverture Fichier"),
+				tr("Pas de ville a charger."));
+		break;
+	case 5:
+		QMessageBox::warning(this, tr("Ouverture Fichier"),
+				tr("Pas de Distance."));
+		break;
+	}
 
-	nameImg = m_nomRepetoire + '/' + nameImg;
+	//MàJ des attributs de la CCarteData m_data
+	m_data =new CCarteData(vect, mappou, nameFile, nameImg);
 
-	//Maj des attributs de la CCarteData m_data
-	m_data = new CCarteData(vect, mappou, nameFile, nameImg);
+	//MàJ du nom de la fenetre
+	setWindowTitle("Mon petit travail sur les graphes : "+m_data->getNomFichier()+" : "+ m_data->getNomImage());
 
-	//Maj du nom de la fenetre
-	setWindowTitle("Mon petit ravail sur les graphes : "+nameFile+" : "+ nameImg);
-
-	//Donne le pointer de Data dans Viewer
-	m_view = new CCarteView(m_data);
-	setCentralWidget(m_view);
+	m_view->setData(m_data);
 }
 
 void Graph::Quitter()
@@ -83,19 +111,18 @@ void Graph::Quitter()
 			break;
 
 		case QMessageBox::Cancel:
-			// Cancel
+			return;
 			break;
 		}
 	}
 
-	QApplication::closeAllWindows();
+	close();
 }
 
 void Graph::Sauver()
 {
 	if(!(m_data->getNomFichier().isEmpty()))
-		CGestionnaire::Sauvegarde(m_data->getNomFichier(),m_data->getNomImage(),m_data->getMapVille(),m_data->getTableRoutage());
-
+		CGestionnaire::Sauvegarde(m_data->getNomFichier(), m_data->getNomImage(), m_data->getMapVille(), m_data->getTableRoutage());
 }
 
 void Graph::Sauver_sous()
@@ -122,7 +149,7 @@ void Graph::Fermer()
 			break;
 
 		case QMessageBox::Cancel:
-			// Cancel
+			return;
 			break;
 		}
 	}
@@ -133,10 +160,12 @@ void Graph::Fermer()
 void Graph::Ouvrir_une_Image()
 {
 	m_data->setNomImage(QFileDialog::getOpenFileName(this,tr("Fichier a ouvrir"),m_nomRepetoire,tr("(*.jpg)")));
+	m_view->setData(m_data);
 
 	if(m_data->getNomImage() != NULL)
+	{
 		update();
-	
+	}
 }
 
 void Graph::Gerer_les_villes()

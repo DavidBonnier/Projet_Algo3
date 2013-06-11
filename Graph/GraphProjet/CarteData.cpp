@@ -7,7 +7,7 @@ CCarteData::CCarteData()
 CCarteData::CCarteData(Table routage, MaMap villes, QString fichier, QString image)
 {
 	m_nomFichier = fichier;
-	m_nomImage = image;	
+	m_nomImage = image;
 	m_tableRoutage = routage;
 	m_mapVille = villes;
 }
@@ -16,7 +16,6 @@ CCarteData::CCarteData(Table routage, MaMap villes, QString fichier, QString ima
 CCarteData::~CCarteData(void)
 {
 }
-
 
 void CCarteData::setNomFichier(QString string)
 {
@@ -36,4 +35,9 @@ void CCarteData::setTableRoutage(Table route)
 void CCarteData::setMapVille(MaMap cityMap)
 {
 	m_mapVille = cityMap;
+}
+
+void CCarteData::setParcours(QList<int> parcours)
+{
+	m_parcours = parcours;
 }

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'graph.ui'
 **
-** Created: Wed 5. Jun 11:06:44 2013
+** Created: Mon 10. Jun 15:04:06 2013
 **      by: Qt User Interface Compiler version 4.8.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -16,7 +16,6 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDockWidget>
 #include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
@@ -46,7 +45,6 @@ public:
     QAction *actionA_propos;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_4;
-    QLabel *imageLabel;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuOutils;
@@ -107,11 +105,6 @@ public:
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        imageLabel = new QLabel(centralWidget);
-        imageLabel->setObjectName(QString::fromUtf8("imageLabel"));
-
-        verticalLayout_4->addWidget(imageLabel);
-
         GraphClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(GraphClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -232,7 +225,6 @@ public:
         actionRestaurer->setText(QApplication::translate("GraphClass", "Restaurer", 0, QApplication::UnicodeUTF8));
         actionAide->setText(QApplication::translate("GraphClass", "Aide", 0, QApplication::UnicodeUTF8));
         actionA_propos->setText(QApplication::translate("GraphClass", "A propos", 0, QApplication::UnicodeUTF8));
-        imageLabel->setText(QString());
         menuFichier->setTitle(QApplication::translate("GraphClass", "Fichier", 0, QApplication::UnicodeUTF8));
         menuOutils->setTitle(QApplication::translate("GraphClass", "Outils", 0, QApplication::UnicodeUTF8));
         menuOption->setTitle(QApplication::translate("GraphClass", "Option", 0, QApplication::UnicodeUTF8));
